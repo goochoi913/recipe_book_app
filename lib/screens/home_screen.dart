@@ -18,24 +18,10 @@ class HomeScreen extends StatelessWidget {
           final recipe = sampleRecipes[index];
           
           return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ListTile(
-              contentPadding: const EdgeInsets.all(8),
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  recipe.imagePath,
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              title: Text(
-                recipe.name, 
-                style: const TextStyle(fontWeight: FontWeight.bold)
-              ),
-              subtitle: Text('${recipe.ingredients.length} ingredients'),
-              trailing: const Icon(Icons.chevron_right),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            clipBehavior: Clip.antiAlias, 
+            elevation: 4,
+            child: InkWell( 
               onTap: () {
                 Navigator.push(
                   context,
@@ -44,6 +30,40 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    recipe.imagePath,
+                    height: 160,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              recipe.name, 
+                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '${recipe.ingredients.length} ingredients',
+                              style: TextStyle(color: Colors.grey[600]),
+                            ),
+                          ],
+                        ),
+                        const Icon(Icons.chevron_right, color: Colors.grey),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },
